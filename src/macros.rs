@@ -1,5 +1,4 @@
 
-
 #[macro_export]
 macro_rules! s {
     ($str:expr) => { String::from($str) };
@@ -13,8 +12,21 @@ macro_rules! cnct {
             $(
                 let second: &str = &$e2;
                 string.push_str(second);
-            )+
+            )*
             string
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! map {
+    ($($key:expr => $value:expr),+) => {
+        {
+            let mut hashmap = std::collections::HashMap::new();
+            $(
+                hashmap.insert($key, $value);
+             )+
+            hashmap
         }
     };
 }
