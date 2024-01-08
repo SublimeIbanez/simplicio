@@ -1,6 +1,12 @@
 [package]
 name = "simplicio"
 version = "0.1.0"
+authors = ["Joshua Benn", "crypdough.eth"]
+description = "Gets rid of the boilerplate in rust."
+license = "MIT"
+repository = "https://github.com/JoshBenn/simplicio"
+keywords = ["macro", "string", "rust", "hashmap", "simple"]
+categories = ["utilities", "macros"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
