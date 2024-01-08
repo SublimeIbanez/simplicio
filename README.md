@@ -11,7 +11,7 @@ Get rid of the annoying boilerplate with Rust.
 To start using Simplicio, add the following to your `Cargo.toml`:
 ```toml
 [dependencies]
-simplicio = "0.1.0"
+simplicio = "0.1.1"
 ```
 - Minimum supported Rust version: `1.56.1`
 
