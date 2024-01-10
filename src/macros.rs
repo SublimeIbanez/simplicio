@@ -126,39 +126,55 @@ macro_rules! cnct {
 /// ```
 #[macro_export]
 macro_rules! map {
-    ($($key:tt[$value:expr]),+ $(,)?) => {
+    // For new
+    () => { std::collections::HashMap::new() };
+
+    // key[value]
+    ($($key:path[$val:expr]),+ $(,)?) => { map!(@mapper $($key, $val),+) };
+    ($($key:tt[$val:expr]),+ $(,)?) => { map!(@mapper $($key, $val),+) };
+
+    // key value || key: value || key -> value || key => value
+    ($($key:tt$(:)?$(->)?$(=>)?$val:expr),+ $(,)?) => { map!(@mapper $($key, $val),+) };
+
+    // When keys are paths and not tokens
+    ($($key:path : $val:expr),+ $(,)?) => { map!(@mapper $($key, $val),+) };
+    ($($key:path => $val:expr),+ $(,)?) => { map!(@mapper $($key, $val),+) };
+
+    // Vec<(_,_)>, &[(_,_)], or manually input map!([(k,v)])
+    ($($arr:expr),+ $(,)?) => {
         {
-            // println!("wut {:?}", $key);
-            let mut hashmap = std::collections::HashMap::new();
+            let mut map = map!();
             $(
-                hashmap.insert($key, $value);
+                map.extend($crate::helpers::mapper($arr));
             )+
-            hashmap
+            map 
         }
     };
 
-    ($($key:tt $(:)?$(->)?$(=>)? $value:expr),+ $(,)?) => {
+    //Does the bulk of the mapping
+    (@mapper $($key:expr, $value:expr),+ $(,)?) => {
         {
-            let mut hashmap = std::collections::HashMap::new();
+            let mut map = std::collections::HashMap::new();
             $(
-                hashmap.insert($key, $value);
+                map.insert($key, $value);
             )+
-            hashmap
+            map
         }
-    };
+    }
+}
 
-
-    ([$(($key:tt,$value:expr)),+ $(,)?]) => {
-        {
-            let mut hashmap = std::collections::HashMap::new();
-            $(
-                hashmap.insert($key, $value);
-            )+
-            hashmap
-        }
-    };
-
-    ($arr:expr) => {
-        $crate::helpers::mapper($arr)
-    };
+/// Prints to the console with a newline.
+/// Convenient shorthand for `println!`.
+///
+/// # Examples
+///
+/// Basic usage:
+///
+/// ```
+/// # use logfather::n;
+/// n!();
+/// ```
+#[macro_export]
+macro_rules! ln {
+    () => { println!() };
 }

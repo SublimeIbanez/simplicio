@@ -11,12 +11,15 @@ Get rid of the annoying boilerplate in Rust and simplify creation of `String`s a
 - `cnct!()` is a wrapper around `s!()` for preferential purposes
 - `map()` creates a HashMap with initial values or from a Vec/array of tuple pairs
   - `map!(k1 v1, k1 v2)` | `map!(k1: v1, k2:v2)` | `map!(k1 => v1, k2 => v2)` | `map!(k1 -> v1, k2 -> v2)`
+  - `Path` variables, if used as keys, are limited to `=>`, `:`, or `[value]` delimiters
+  - Create a new `HashMap` with `map!()`
+  - Can extend `HashMap`s
 
 ## Getting Started
 To start using Simplicio, add the following to your `Cargo.toml`:
 ```toml
 [dependencies]
-simplicio = "0.1.2"
+simplicio = "0.1.3"
 ```
 - Minimum supported Rust version: `1.56.1`
 
