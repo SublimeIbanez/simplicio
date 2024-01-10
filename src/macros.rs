@@ -75,12 +75,12 @@ macro_rules! s {
 ///    }
 /// }
 ///
-/// let concatenated_string = cnct!(."Yel", "low", "!");
+/// let concatenated_string = cnct!("Yel", "low", "!");
 /// assert_eq!(concatenated_string, String::from("Yellow!"));
 ///
 /// let text = String::from("this");
 /// let concat_string = cnct!(.text, true, 123, Enum::Value); //Assuming Enum implements the ToString trait and is set to "Value"
-/// assert_eq!(concat_string, String::from("this true 123 Value"));
+/// assert_eq!(concat_string, String::from("this true 123 value"));
 /// ```
 #[macro_export]
 macro_rules! cnct {
@@ -159,15 +159,6 @@ macro_rules! map {
     };
 
     ($arr:expr) => {
-        $crate::macros::mapper($arr)
+        $crate::helpers::mapper($arr)
     };
-}
-
-pub fn mapper<K, V, I>(iter: I) -> std::collections::HashMap<K, V> 
-where
-    K: std::hash::Hash + Eq + Clone,
-    V: Clone,
-    I: std::iter::IntoIterator<Item = (K, V)>,
-{
-    return iter.into_iter().collect();
 }
