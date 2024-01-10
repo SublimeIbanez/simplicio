@@ -25,12 +25,20 @@ String creation and concatination
 ```rust
 use simplicio::{s, cnct};
 
+// Creating an enum for example purposes
+enum Enum { Value }  //Create the enum, Enum
+impl std::fmt::Display for Enum {  // Implement the Display trait
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+         match self { Enum::Value => write!(f, "value"), }
+    }
+}
+
 fn main() {
     assert_eq!(String::new(), s!()); // Make a new string
     assert_eq!(String::from("This is a String"), s!("This is a String")); // Stop using .to_string() or String::from()
 
-    assert_eq!(String::from(true), s!(true)); // Converts bools
-    assert_eq!(String::from(123840), s!(123840)); // Convert numbers fast boiiii
+    assert_eq!(true.to_string(), s!(true)); // Converts bools
+    assert_eq!(123840.to_string(), s!(123840)); // Convert numbers fast boiiii
     assert_eq!(Enum::Value.to_string(), s!(Enum::Value)); // As long as it implements the ToString or Display traits, it will work
 
     let (a, b, c, d) = ("This", "is", "a", "String");
@@ -51,7 +59,7 @@ fn main() {
     assert_eq!(map!("k1":"v1", "k2" : "v2"), tester);       // ':' delimiter
     assert_eq!(map!("k1"=>"v1", "k2" => "v2"), tester);     // '=>' delimiter
     assert_eq!(map!("k1"->"v1", "k2" -> "v2"), tester);     // '->' delimiter
-    assert_eq!(map!("k1"["v1"], "k2" ["v2"])), tester);     // Key[Value]
+    assert_eq!(map!("k1"["v1"], "k2" ["v2"]), tester);     // Key[Value]
     assert_eq!(map!([("k1", "v1"), ("k2", "v2")]), tester); // Similar to Hashmap::from(/*...*/)
 
     let vecmap = Vec::from([("k1", "v1"), ("k2", "v2")]);
